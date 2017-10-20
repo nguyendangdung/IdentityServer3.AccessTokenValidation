@@ -144,6 +144,17 @@ namespace IdentityServer3.AccessTokenValidation
                 }
             }
 
+            // Added by ddnguyen0702@hotmail
+            if (string.IsNullOrWhiteSpace(requestToken))
+            {
+                var value = context.Request.Query.Get("access_token");
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    requestToken = value;
+                }
+            }
+
             // give application opportunity to find from a different location, adjust, or reject token
             if (_options.TokenProvider != null)
             {
